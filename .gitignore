@@ -60,3 +60,5 @@ target/
 # Can be unstaged
 .errors
 pip-selfcheck.json
+
+.vscode
