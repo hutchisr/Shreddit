@@ -10,8 +10,11 @@ import yaml
 from datetime import datetime, timedelta
 from praw.models import Comment, Submission
 from prawcore.exceptions import ResponseException, OAuthException, BadRequest
+from essential_generators import DocumentGenerator
 from re import sub
 from shreddit.util import get_sentence, ShredditError
+
+generator = DocumentGenerator()
 
 
 class Shredder(object):
@@ -114,7 +117,7 @@ class Shredder(object):
 
     def _remove_comment(self, comment):
         if self._replacement_format == "random":
-            replacement_text = get_sentence()
+            replacement_text = generator.sentence()
         elif self._replacement_format == "dot":
             replacement_text = "."
         else:
