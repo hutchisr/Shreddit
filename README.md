@@ -53,7 +53,7 @@ password=
 a client id/secret pair, that is how the Reddit API does "OAuth" script applications.
 
 Username and password are simply your Reddit login credentials for the account that will be used. However, to obtain the
-client ID and secret, follow these steps (taken from 
+client ID and secret, follow these steps (taken from
 [PRAW documentation](http://praw.readthedocs.io/en/latest/getting_started/authentication.html#script-application)):
 
 1. Open your Reddit application preferences by clicking [here](https://www.reddit.com/prefs/apps/).
@@ -78,7 +78,7 @@ Keep your praw.ini either in the current directory when running `shreddit`, or i
 [described here](http://praw.readthedocs.io/en/latest/getting_started/configuration/prawini.html) such as
 `~/.config` in Linux or `%APPDATA%` in Windows.
 
-To use more than one account, you can add multiple profiles instead of just `[default]` and use the `-u` option to 
+To use more than one account, you can add multiple profiles instead of just `[default]` and use the `-u` option to
 `shreddit` to choose which one each time.
 
 ### Automating
@@ -141,5 +141,5 @@ optional arguments:
 
 ## Donate
 
-A few people have asked about donating so here's a Bitcoin address, any amount is appreciated, spread amongst recent 
+A few people have asked about donating so here's a Bitcoin address, any amount is appreciated, spread amongst recent
 contributors and if there's enough interest a web service may be on the horizon! `1PbeYK7FonjVmgWxf4ieKmvwtomZR1K1Qu`

@@ -12,6 +12,7 @@ LOREM = """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sit a
 try:
     from loremipsum import get_sentence
 except ImportError:
+
     def get_sentence():
         """This keeps the mess of dealing with the loremipsum library out of the shredding code. Until the maintainer of
         the loremipsum package uploads a version that works with Python 3 to pypi, it is necessary to provide a drop-in

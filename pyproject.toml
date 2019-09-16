@@ -1,26 +1,38 @@
 [tool.poetry]
 name = "shreddit"
-version = "0.1.0"
-description = ""
-authors = ["Your Name <you@example.com>"]
+version = "7.0.0"
+description = "Remove your comment history on Reddit as deleting an account does not do so."
+authors = ["David John <david@vaunt.eu>"]
+license = "BSD-2-Clause"
+readme = "README.md"
+repository = "https://github.com/rainyday/Shreddit"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: End Users/Desktop",
+  "Environment :: Console",
+  "Programming Language :: Python"
+]
+include = ["*.example"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-appdirs = "=1.4.3"
+appdirs = "^1.4"
 arrow = "^0.14.5"
 backports-abc = "^0.5"
 certifi = "*"
-chardet = "^3.0.4"
+chardet = "^3.0"
 idna = "^2.5"
-praw = "^5.0.0"
-python-dateutil = "^2.6.0"
-requests = "^2.18.1"
-tornado = "^4.5.1"
+praw = "^5.0"
+python-dateutil = "^2.6"
+requests = "^2.18"
+tornado = "^4.5"
 update-checker = "^0.16"
-urllib3 = "^1.21.1"
+urllib3 = "^1.21"
 pyyaml = "^5.1"
 essential_generators = "^0.9.2"
 
+[tool.poetry.scripts]
+shreddit = "shreddit.app:main"
 
 [tool.poetry.dev-dependencies]
 

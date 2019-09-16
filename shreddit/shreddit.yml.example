@@ -11,7 +11,7 @@ hours: 24
 max_score: 100
 
 # Options: new, top, controversial, more?
-sort: new
+sort: [new, top, hot, controversial]
 
 # Enables print statements to notify you of what's going on
 verbose: True
