@@ -5,7 +5,7 @@ import os
 import praw
 import time
 from praw.models import Comment, Submission
-from prawcore.exceptions import ResponseException, OAuthException, BadRequest
+from prawcore.exceptions import ResponseException, OAuthException, BadRequest, Forbidden
 from essential_generators import DocumentGenerator
 from re import sub
 from shreddit.util import ShredditError
@@ -170,12 +170,15 @@ class Shredder:
                     self._logger.debug(
                         f"Couldn't clear vote on {item}"
                     )
-        if isinstance(item, Submission):
-            self._remove_submission(item)
-        elif isinstance(item, Comment):
-            self._remove_comment(item)
-        if not self._trial_run:
-            item.delete()
+        try:
+            if isinstance(item, Submission):
+                self._remove_submission(item)
+            elif isinstance(item, Comment):
+                self._remove_comment(item)
+            if not self._trial_run:
+                item.delete()
+        except Forbidden:
+            self._logger.debug(f"Got HTTP Forbidden error trying to remove {item}, skipping.")
 
     def _remove_things(self, items):
         self._logger.info("Loading items to delete...")
@@ -209,20 +212,25 @@ class Shredder:
 
     def _build_iterator(self):
         user = self._r.user.me()
-        if self._item == "comments":
-            items = user.comments
-        elif self._item == "submitted":
-            items = user.submissions
+        listings = []
         iterators = []
-        for sort in self._sort:
-            if sort == "new":
-                iterators.append(items.new(limit=None))
-            elif sort == "top":
-                iterators.append(items.top(limit=None))
-            elif sort == "hot":
-                iterators.append(items.hot(limit=None))
-            elif sort == "controversial":
-                iterators.append(items.controversial(limit=None))
-            else:
-                raise ShredditError(f'Sorting "{self._sort}" not recognized.')
+
+        if self._item == "comments":
+            listings.append(user.comments)
+        elif self._item == "submitted":
+            listings.append(user.submissions)
+        elif self._item == "overview":
+            listings.extend([user.comments, user.submissions])
+        for listing in listings:
+            for sort in self._sort:
+                if sort == "new":
+                    iterators.append(listing.new(limit=None))
+                elif sort == "top":
+                    iterators.append(listing.top(limit=None))
+                elif sort == "hot":
+                    iterators.append(listing.hot(limit=None))
+                elif sort == "controversial":
+                    iterators.append(listing.controversial(limit=None))
+                else:
+                    raise ShredditError(f'Sorting "{self._sort}" not recognized.')
         return chain.from_iterable(iterators)
